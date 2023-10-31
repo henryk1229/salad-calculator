@@ -11,6 +11,3 @@ pub fn word_list() -> String {
       }).collect();
     word_list
 }
-fn main() {
-    println!("word_list {:?}", word_list());
-}
