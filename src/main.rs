@@ -1,6 +1,6 @@
 // use salad_calculator;
 
-pub fn word_list() -> String {
+pub fn word_list() -> Vec<String> {
     let word_list = include_str!("../word_list/words_alpha.txt")
       .split("\r\n")
       .map(|str| str.to_string())
@@ -10,7 +10,7 @@ pub fn word_list() -> String {
           return false
         }
         return true
-      }).collect();
+      }).collect::<Vec<String>>();
     word_list
 }
 fn main() {
