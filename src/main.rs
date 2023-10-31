@@ -1,3 +1,5 @@
+// use salad_calculator;
+
 pub fn word_list() -> String {
     let word_list = include_str!("../word_list/words_alpha.txt")
       .split("\r\n")
