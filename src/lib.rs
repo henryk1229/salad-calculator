@@ -1,6 +1,4 @@
 mod trie;
-
-// use std::collections::HashSet;
 // use std::process::exit;
 use trie::Trie;
 
@@ -10,11 +8,9 @@ use trie::Trie;
 //   path::Path,
 // };
 
-// TODO - use input
-pub fn find_salads(_input_string: &str) -> Trie {
-  // let unused_letters = input_string.trim();
-  // validate_letters(unused_letters);
-
+pub fn build_trie(input_string: &str) -> Trie {
+  // TODO - input_string?
+  // filter word list for size and unused letters
   let word_list = include_str!("../word_list/words_alpha.txt")
     .split("\r\n")
     .map(| str | str.to_string())
@@ -22,11 +18,16 @@ pub fn find_salads(_input_string: &str) -> Trie {
       if line.len() != 5 {
         return false;
       }
+      let letters: Vec<&str> = line.split("").collect();
+      for letter in letters {
+        if input_string.contains(letter) {
+          return false
+        }
+      }
       true
      })
      .collect::<Vec<String>>();
 
-    let trie = Trie::from(word_list);
-
-    trie
+    // return Trie of words with unused letters
+    Trie::from(word_list)
 }
