@@ -2,6 +2,7 @@ use std::collections::HashMap;
 
 #[derive(Debug)]
 pub struct TrieNode {
+  // TODO
   value: Option<char>,
   is_word: bool,
   children: HashMap<char, TrieNode>,
@@ -24,12 +25,12 @@ impl TrieNode {
     }
   }
 
-  pub fn check_value(self, c: char) -> bool {
-    self.value == Some(c)
-  }
+  // pub fn check_value(self, c: char) -> bool {
+  //   self.value == Some(c)
+  // }
 
   pub fn insert_value(&mut self, c: char, is_word: bool) {
-    self.children.insert(c, TrieNode::create(c, is_word))
+    self.children.insert(c, TrieNode::create(c, is_word));
   }
 }
 
@@ -58,15 +59,32 @@ impl Trie {
     return trie;
    }
 
-  // TODO - finish implementing trie
-  //  pub fn insert(&mut self, value: &str) {
-  //   let chars: Vec<char> = value.chars().collect();
-  //   let mut current_node = &mut self.root_node;
-  //   let mut last_match_index = 0;
+  pub fn insert(&mut self, value: &str) {
+    let chars: Vec<char> = value.chars().collect();
+    let mut current_node = &mut self.root_node;
+    let mut last_match_index = 0;
 
-  //   for i in 0..chars.len() {
-  //     if current_node
-  //   }
+    for i in 0..chars.len() {
+      if current_node.children.contains_key(&chars[i]) {
+        // TODO - comments 
+        current_node = current_node.children.get_mut(&chars[i]).unwrap();
+        last_match_index = i + 1;
+      } else {
+        last_match_index = i;
+        break;
+      }
+    }
 
-  //  }
+    if last_match_index == chars.len() {
+      // TODO - better var name?
+      current_node.is_word = true;
+    } else {
+      for i in last_match_index..chars.len() {
+        current_node.insert_value(chars[i], false);
+        current_node = current_node.children.get_mut(&chars[i]).unwrap();
+      }
+
+      current_node.is_word = true;
+    }
+  }
 }
