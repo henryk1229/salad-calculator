@@ -1,6 +1,8 @@
 mod trie;
+
 // use std::process::exit;
 use trie::Trie;
+use std::collections::HashSet;
 
 // use std::{
 //   fs::File,
@@ -30,4 +32,12 @@ pub fn build_trie(input_string: &str) -> Trie {
 
     // return Trie of words with unused letters
     Trie::from(word_list)
+}
+
+// TODO - build hash set of possible salads, is it a trie?
+// build trie (hash map?) from word list according to rules
+pub fn find_word_salads(input_string: &str) -> HashSet<String> {
+    let _trie = build_trie(input_string);
+    let words= HashSet::new();
+    words
 }

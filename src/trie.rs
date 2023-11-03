@@ -51,7 +51,6 @@ impl Trie {
 
     print!("Building Trie...");
     for word in word_list.iter() {
-      println!("inserting {}...", word);
       trie.insert(word)
     }
     println!("DONE!");
@@ -87,4 +86,35 @@ impl Trie {
       current_node.is_word = true;
     }
   }
+
+  // pub fn find(&mut self, value: &str, is_word: &mut bool) -> bool {
+
+  // }
+
+  // TODO - not necessary ?
+  // pub fn prune(&mut self, letter: char, is_word: &mut bool) -> bool {
+  //   // let chars: Vec<char> = letter.chars().collect();
+  //   let mut current_node = &mut self.root_node;
+
+  //   // if current_node.children.contains_key(&letter) {
+  //   //   // DELETE
+  //   //   current_node.remove(&le)
+  //   // } else {
+  //   //   current_node = current_node.children.get_mut(&letter).unwrap();
+  //   // }
+
+  //   // for &node in current_node.children.into_iter().collect() {
+  //   //   if node.contains(&letter) {
+  //   //     current_node.remove(&letter)
+  //   //   }
+  //   // }
+
+    
+  //   // if we find the letter in a node, delete the node
+
+  //   // if we don't find the letter, go the next node, traverse 
+
+  //   // if we reach the terminus -- ?
+  //   true
+  // }
 }
