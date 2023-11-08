@@ -15,6 +15,6 @@ fn main() {
     //     unused_letters.push(letter)
     //   }
     // }
-    // println!("UNUSED {}", unused_letters);
     println!("word_list {:?}", salad_calculator::find_word_salads(initial_word));
+
 }
