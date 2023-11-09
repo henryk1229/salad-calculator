@@ -46,7 +46,9 @@ pub fn find_word_salads(input_string: &str) -> SaladLayer {
     // let _trie = build_trie(input_string);
     // let words= HashSet::new();
 
-    let mut word_salad = SaladLayer::create(input_string);
+    let mut word_salad = SaladLayer::create(&input_string.to_string());
+
+    println!("SALADDDDD {:?}", word_salad);
 
     let word_list = include_str!("../word_list/words_alpha.txt")
       .split("\r\n")
