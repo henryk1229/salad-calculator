@@ -38,21 +38,35 @@ pub fn build_trie(input_string: &str) -> Trie {
     Trie::from(word_list)
 }
 
+// build 5 letter word list
+pub fn build_word_list() -> Vec<String> {
+  let word_list = include_str!("../word_list/words_alpha.txt")
+    .split("\r\n")
+    .map(| str | str.to_string())
+    .filter(| ref line | {
+      if line.len() != 5 {
+        return false
+      }
+      true
+    })
+    .collect::<Vec<String>>();
+  word_list
+}
+
 // TODO - build hash set of possible salads, is it a trie?
 // build trie (hash map?) from word list according to rules
 // TODO - return salad layer or wordsalad?
 pub fn find_word_salads(input_string: &str) -> WordSalad {
 
+    // initialize word_salad with input string
     let mut word_salad = WordSalad::create(&input_string.to_string());
 
-    let word_list = include_str!("../word_list/words_alpha.txt")
-      .split("\r\n")
-      .map(| str | str.to_string())
-      .collect::<Vec<String>>();
+    // build word list
+    let word_list = build_word_list();
 
     // make three layers of salad
-    for _i in 0..4 {
-      WordSalad::toss_salad(&mut word_salad, input_string, &word_list);
+    for i in 0..4 {
+      WordSalad::toss_salad(&mut word_salad, input_string, &word_list, i);
     };
 
     // words
