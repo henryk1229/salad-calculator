@@ -1,21 +1,21 @@
 use std::collections::HashMap;
 
 #[derive(Debug, Clone)]
-pub struct SaladLayer {
+pub struct WordSalad {
   word: Option<String>,
-  children: HashMap<String, SaladLayer>,
+  children: HashMap<String, WordSalad>,
 }
 
-impl SaladLayer {
-  pub fn create(word: &String) -> SaladLayer {
-    SaladLayer {
+impl WordSalad {
+  pub fn create(word: &String) -> WordSalad {
+    WordSalad {
       word: Some(word.to_string()),
       children: HashMap::new()
     }
   }
   // TODO - do we need an empty root?
-  // pub fn create_root() -> SaladLayer {
-  //   SaladLayer {
+  // pub fn create_root() -> WordSalad {
+  //   WordSalad {
   //     word: None,
   //     children: HashMap::new(),
   //   }
@@ -23,28 +23,29 @@ impl SaladLayer {
 
   pub fn insert_word(&mut self, word: &String) {
     // let word = word.clone().to_string();
-    self.children.insert(word.to_string(), SaladLayer::create(word));
+    self.children.insert(word.to_string(), WordSalad::create(word));
   }
 
   pub fn toss_salad(&mut self, root_word: &str, word_list: &Vec<String>) {
     // handle root level - TODO - reduce branching?
-    if self.word.as_ref().unwrap() == root_word {
-      for word in word_list.iter() {
-          SaladLayer::insert_word(self, word)
-      }
-      return
-    };
+    // if self.word.as_ref().unwrap() == root_word {
+    //   for word in word_list.iter() {
+    //       WordSalad::insert_word(self, word)
+    //   }
+    //   // return
+    // };
     // handle node layers
-    let nodes = self.children.clone();
-    println!("NODESSSSS {:?} ROOT {:?}", nodes, root_word);
+    let current_word = self.word.as_ref().unwrap();
+    let child_nodes = self.children.clone();
+    println!("NODESSSSS {:?} ROOT {:?}", child_nodes, root_word);
     // let used_letters: Vec<char> = root_word.chars().collect();
-    for node in nodes {
+    for node in child_nodes {
       // let used_letters = root_word.to_owned().push(node.0);
       println!("In here node {:?}", node);
       for word in word_list.iter() {
         println!("In here in here word {}", word);
         if !root_word.contains(word) && !node.0.contains(word) {
-          SaladLayer::insert_word(self, word);
+          WordSalad::insert_word(self, word);
         }
       }
     }
