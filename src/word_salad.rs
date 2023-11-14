@@ -42,30 +42,30 @@ impl WordSalad {
           }
         }
         if should_insert && word.starts_with(root_letters[4]) {
-          WordSalad::insert_word(self, word)
+          self.insert_word(word)
         }
       }
     } else {
-      // TODO - debug infinite loop
+      // TODO - debug infinite loop - if it is one
       // handle node layers
       for mut node in child_nodes {
+          println!("In here in here word {:?}", node);
         // let used_letters = root_word.to_owned().push(node.0);
-        for word in word_list.iter() {
-          println!("In here in here word");
-          let root_letters: Vec<char> = root_word.chars().collect();
-          let mut current_letters: Vec<char> = node.0.to_owned().chars().collect();
-          current_letters.pop();
-          let used_letters: Vec<char> = current_letters.splice(0..current_letters.len() - 1, root_letters).collect();
-          let mut should_insert = true;
-          for letter in used_letters.iter() {
-            if word.contains(*letter) {
-              should_insert = false
-            }
-          }
-          if should_insert {
-            WordSalad::insert_word(&mut node.1, word);
-          }
-        }
+        // for word in word_list.iter() {
+          // let root_letters: Vec<char> = root_word.chars().collect();
+          // let mut current_letters: Vec<char> = node.0.to_owned().chars().collect();
+          // current_letters.pop();
+          // let used_letters: Vec<char> = current_letters.splice(0..current_letters.len() - 1, root_letters).collect();
+          // // let mut should_insert = true;
+          // // for letter in used_letters.iter() {
+          // //   if word.contains(*letter) {
+          // //     should_insert = false
+          // //   }
+          // // }
+          // // if should_insert {
+          // //   node.1.insert_word(word);
+          // // }
+        // }
       }
 
       // println!("ROOT NODE LENGTH {:?}", child_nodes.len());
@@ -107,3 +107,6 @@ impl WordSalad {
 // }
 
 // is a wordSalad a struct of tries? or is it four leaves of a trie?
+
+
+// REFACTOR - instead of approaching it layer by layer, do node by node (vertical, not horizontal)?

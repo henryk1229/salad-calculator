@@ -25,9 +25,9 @@ impl TrieNode {
     }
   }
 
-  // pub fn check_value(self, c: char) -> bool {
-  //   self.value == Some(c)
-  // }
+  pub fn check_value(self, c: char) -> bool {
+    self.value == Some(c)
+  }
 
   pub fn insert_value(&mut self, c: char, is_word: bool) {
     self.children.insert(c, TrieNode::create(c, is_word));
@@ -91,7 +91,6 @@ impl Trie {
 
   // }
 
-  // TODO - not necessary ?
   // pub fn prune(&mut self, letter: char, is_word: &mut bool) -> bool {
   //   // let chars: Vec<char> = letter.chars().collect();
   //   let mut current_node = &mut self.root_node;
