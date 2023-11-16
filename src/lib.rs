@@ -59,15 +59,16 @@ pub fn build_word_list() -> Vec<String> {
 pub fn find_word_salads(input_string: &str) -> WordSalad {
 
     // initialize word_salad with input string
-    let mut word_salad = WordSalad::create(&input_string.to_string());
+    let mut word_salad = WordSalad::create(&input_string.to_string(), true);
 
     // build word list
     let word_list = build_word_list();
 
     // make three layers of salad
-    for i in 0..4 {
-      WordSalad::toss_salad(&mut word_salad, input_string, &word_list, i);
-    };
+    // for i in 0..4 {
+    //   WordSalad::toss_salad(&mut word_salad, input_string, &word_list, i);
+    // };
+    word_salad.toss_salad(&word_list);
 
     // words
   word_salad
