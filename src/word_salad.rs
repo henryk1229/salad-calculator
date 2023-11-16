@@ -1,17 +1,17 @@
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 #[derive(Debug, Clone)]
 pub struct WordSalad {
   word: Option<String>,
-  is_root: bool,
+  salad_layer: u8,
   children: HashMap<String, WordSalad>,
 }
 
 impl WordSalad {
-  pub fn create(word: &String, is_root: bool) -> WordSalad {
+  pub fn create(word: &String, salad_layer: u8) -> WordSalad {
     WordSalad {
       word: Some(word.to_string()),
-      is_root,
+      salad_layer,
       children: HashMap::new()
     }
   }
@@ -24,14 +24,15 @@ impl WordSalad {
   // }
 
   pub fn insert_word(&mut self, word: &String) {
-    // let word = word.clone().to_string();
-    self.children.insert(word.to_string(), WordSalad::create(word, false));
+    let salad_layer = self.salad_layer;
+    self.children.insert(word.to_string(), WordSalad::create(word, salad_layer + 1));
   }
 
-  pub fn toss_salad(&mut self, word_list: &Vec<String>) {
+  pub fn toss_salad(&mut self, word_list: &Vec<String>, solution_set: &mut HashSet<String>) -> WordSalad {
     // TODO - is .clone() the best option here?
     let root_word = self.word.clone().unwrap();
     let used_letters: Vec<char> = root_word.chars().collect();
+    println!("SELF {:?}", self);
     for word in word_list.iter() {
       let word_letters: Vec<char> = word.chars().collect();
       let should_insert = match used_letters.as_slice() {
@@ -42,9 +43,20 @@ impl WordSalad {
       };
       if should_insert {
         let concat = format!("{}{}", root_word, word);
-        println!("INSERTING {:?}", concat);
         WordSalad::insert_word(self, &concat);
       }
+    }
+    if self.salad_layer > 3 {
+      let set = self.word.as_ref().unwrap();
+      solution_set.insert(set.to_string());
+      return self.to_owned()
+    } else {
+      let child_nodes = &self.children;
+      for node in child_nodes.iter() {
+        let mut word_salad = node.1.to_owned();
+        WordSalad::toss_salad(&mut word_salad, word_list, solution_set);
+      }
+      return self.to_owned()
     }
   }
 
@@ -130,6 +142,3 @@ impl WordSalad {
 // }
 
 // is a wordSalad a struct of tries? or is it four leaves of a trie?
-
-
-// REFACTOR - store combined used_letters at each node level, instead of discrete words

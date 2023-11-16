@@ -4,6 +4,7 @@ mod word_salad;
 use trie::Trie;
 use word_salad::WordSalad;
 use std::str::Chars;
+use std::collections::HashSet;
 
 pub fn build_trie(input_string: &str) -> Trie {
   // TODO - input_string?
@@ -47,17 +48,18 @@ pub fn build_word_list() -> Vec<String> {
   word_list
 }
 
-pub fn find_word_salads(input_string: &str) -> WordSalad {
+pub fn find_word_salads(input_string: &str) -> HashSet<String> {
 
-    // initialize word_salad with input string
-    let mut word_salad = WordSalad::create(&input_string.to_string(), true);
+  // initialize word_salad with input string
+  let mut word_salad = WordSalad::create(&input_string.to_string(), 0);
 
-    // build word list
-    let word_list = build_word_list();
+  // build word list
+  let word_list = build_word_list();
 
-    // TODO - recurse / iterate
-    word_salad.toss_salad(&word_list);
+  let mut solution_set = HashSet::new();
 
-  // return solution set
-  word_salad
+  // TODO - simplify approach
+  WordSalad::toss_salad(&mut word_salad, &word_list, &mut solution_set);
+
+  solution_set
 }
