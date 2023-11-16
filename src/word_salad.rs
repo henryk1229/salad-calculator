@@ -2,6 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 #[derive(Debug, Clone)]
 pub struct WordSalad {
+  // TODO - Vec<String>
   word: Option<String>,
   salad_layer: u8,
   children: HashMap<String, WordSalad>,
@@ -25,7 +26,6 @@ impl WordSalad {
     // TODO - is .clone() the best option here?
     let root_word = self.word.clone().unwrap();
     let used_letters: Vec<char> = root_word.chars().collect();
-    println!("SELF {:?}", self);
     for word in word_list.iter() {
       let word_letters: Vec<char> = word.chars().collect();
       let should_insert = match used_letters.as_slice() {
@@ -35,11 +35,11 @@ impl WordSalad {
         [beginning @ .., last] => !word.contains(beginning) && *last == word_letters[0]
       };
       if should_insert {
-        let concat = format!("{}{}", root_word, word);
+        let concat = format!("{},{}", root_word, word);
         WordSalad::insert_word(self, &concat);
       }
     }
-    if self.salad_layer > 3 {
+    if self.salad_layer >= 3 {
       let set = self.word.as_ref().unwrap();
       solution_set.insert(set.to_string());
       return self.to_owned()
