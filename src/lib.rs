@@ -9,7 +9,7 @@ use std::collections::HashSet;
 pub fn build_trie(input_string: &str) -> Trie {
   // TODO - input_string?
   // filter word list for size and unused letters
-  let word_list = include_str!("../word_list/words_alpha.txt")
+  let word_list = include_str!("../word_lists/anagram_dictionary.txt")
     .split("\r\n")
     .map(| str | str.to_string())
     .filter(| ref line | {
@@ -35,8 +35,8 @@ pub fn build_trie(input_string: &str) -> Trie {
 
 // build 5 letter word list
 pub fn build_word_list() -> Vec<String> {
-  let word_list = include_str!("../word_list/words_alpha.txt")
-    .split("\r\n")
+  let word_list = include_str!("../word_lists/anagram_dictionary.txt")
+    .split("\n")
     .map(| str | str.to_string())
     .filter(| ref line | {
       if line.len() != 5 {
