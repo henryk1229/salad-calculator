@@ -2,7 +2,6 @@ use std::collections::{HashMap, HashSet};
 
 #[derive(Debug, Clone)]
 pub struct WordSalad {
-  // TODO - Vec<String>
   word: Option<String>,
   salad_layer: u8,
   children: HashMap<String, WordSalad>,
@@ -22,7 +21,7 @@ impl WordSalad {
     self.children.insert(word.to_string(), WordSalad::create(word, salad_layer + 1));
   }
 
-  pub fn toss_salad(&mut self, word_list: &Vec<String>, solution_set: &mut HashSet<String>) -> WordSalad {
+  pub fn toss_salad(&mut self, word_list: &Vec<String>, solution_set: &mut HashSet<String>) {
     // TODO - is .clone() the best option here?
     let root_word = self.word.clone().unwrap();
     let used_letters: Vec<char> = root_word.chars().collect();
@@ -42,14 +41,12 @@ impl WordSalad {
     if self.salad_layer >= 3 {
       let set = self.word.as_ref().unwrap();
       solution_set.insert(set.to_string());
-      return self.to_owned()
     } else {
       let child_nodes = &self.children;
       for node in child_nodes.iter() {
         let mut word_salad = node.1.to_owned();
         WordSalad::toss_salad(&mut word_salad, word_list, solution_set);
       }
-      return self.to_owned()
     }
   }
 }
