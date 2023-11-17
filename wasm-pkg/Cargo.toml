@@ -1,5 +1,5 @@
 [package]
-name = "wasm-pkg"
+name = "salad_calculator"
 version = "0.1.0"
 authors = ["<henryk1229> <henryk1229@gmail.com>"]
 edition = "2018"
@@ -11,6 +11,7 @@ crate-type = ["cdylib", "rlib"]
 default = ["console_error_panic_hook"]
 
 [dependencies]
+salad_calculator = { path = "../crate" }
 wasm-bindgen = "0.2.84"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
