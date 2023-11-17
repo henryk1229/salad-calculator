@@ -10,7 +10,8 @@ use wasm_bindgen::prelude::*;
 // static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-pub fn make_word_salad(first_word: String) -> String {
-    let solution_set = salad_calculator::find_word_salads(initial_word);
-    return solution_set;
+pub fn make_word_salad(first_word: String) -> JsValue {
+    let solution_set = salad_calculator::find_word_salads(first_word.as_str());
+    
+    serde_wasm_bindgen::to_value(&solution_set).unwrap()
 }
