@@ -2,7 +2,10 @@
 name = "salad_calculator"
 version = "0.1.0"
 authors = ["<henryk1229> <henryk1229@gmail.com>"]
-edition = "2018"
+keywords = ["word game", "word salad", "solve"]
+readme = "README.md"
+license = "MIT"
+edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "rlib"]
@@ -13,6 +16,8 @@ default = ["console_error_panic_hook"]
 [dependencies]
 salad_calculator = { path = "../crate" }
 wasm-bindgen = "0.2.84"
+serde = { version = "1.0", features = ["derive"] }
+serde-wasm-bindgen = "0.6.1"
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires

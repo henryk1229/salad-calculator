@@ -1,6 +1,10 @@
 [package]
 name = "salad_calculator"
-version = "0.1.0"
+version = "0.2.0"
+authors = ["<henryk1229> <henryk1229@gmail.com>"]
+keywords = ["word game", "word salad", "solve"]
+readme = "README.md"
+license = "MIT"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
