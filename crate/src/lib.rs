@@ -12,7 +12,13 @@ pub fn build_word_list() -> Vec<String> {
       if line.len() != 5 {
         return false
       }
-      true
+      // ensure unique letters in each word
+      let chars: Vec<char> = line.chars().collect();
+      let mut set: HashSet<char> = HashSet::new();
+      for char in chars {
+        set.insert(char);
+      };
+      set.len() == line.len()
     })
     .collect::<Vec<String>>();
   word_list
@@ -36,6 +42,6 @@ pub fn find_word_salads(input_string: &str) -> HashSet<String> {
   println!("Tossing the salad...");
   WordSalad::toss_salad(&mut word_salad, &word_list, &mut solution_set);
   println!("Done!");
-  
+
   solution_set
 }
