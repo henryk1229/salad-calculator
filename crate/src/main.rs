@@ -2,7 +2,7 @@ use salad_calculator;
 
 use std::io;
 
-// TODO - get initial_word as input, return solution set
+// TODO - handle unexpected input
 fn main() {
     println!("Please enter a 5 letter word...");
     let mut input = String::new();
