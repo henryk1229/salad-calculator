@@ -5,6 +5,7 @@ use std::collections::HashSet;
 
 // build 5 letter word list
 pub fn build_word_list() -> Vec<String> {
+  let non_letter_chars = ['!', '.', '-'];
   let word_list = include_str!("../word_lists/anagram_dictionary.txt")
     .split("\n")
     .map(| str | str.to_string())
@@ -16,7 +17,10 @@ pub fn build_word_list() -> Vec<String> {
       let chars: Vec<char> = line.chars().collect();
       let mut set: HashSet<char> = HashSet::new();
       for char in chars {
-        set.insert(char);
+        // if the word contains forbidden characters, explicitly prevent set.len == line.len below
+        if !non_letter_chars.contains(&char) {
+          set.insert(char);
+        }
       };
       set.len() == line.len()
     })
