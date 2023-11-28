@@ -1,6 +1,6 @@
 [package]
 name = "salad_calculator"
-version = "0.1.2"
+version = "0.1.3"
 description = "A WordSalad calculator compiled to WebAssembly!"
 repository = "https://github.com/henryk1229/salad-calculator/tree/main/wasm-pkg"
 authors = ["<henryk1229> <henryk1229@gmail.com>"]
