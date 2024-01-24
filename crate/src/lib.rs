@@ -3,9 +3,10 @@ mod word_salad;
 use word_salad::WordSalad;
 use std::collections::HashSet;
 
+const NON_LETTER_CHARS: [char; 4] = ['!', '.', '-', '\''];
+
 // build 5 letter word list
 pub fn build_word_list() -> Vec<String> {
-  let non_letter_chars = ['!', '.', '-'];
   let word_list = include_str!("../word_lists/anagram_dictionary.txt")
     .split("\n")
     .map(| str | str.to_string())
@@ -18,7 +19,7 @@ pub fn build_word_list() -> Vec<String> {
       let mut set: HashSet<char> = HashSet::new();
       for char in chars {
         // if the word contains forbidden characters, explicitly prevent set.len == line.len below
-        if !non_letter_chars.contains(&char) {
+        if !NON_LETTER_CHARS.contains(&char) {
           set.insert(char);
         }
       };
