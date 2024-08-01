@@ -1,5 +1,3 @@
-use salad_calculator;
-
 use std::io;
 
 // TODO - handle unexpected input
