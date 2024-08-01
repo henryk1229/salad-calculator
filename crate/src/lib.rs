@@ -8,9 +8,9 @@ const NON_LETTER_CHARS: [char; 4] = ['!', '.', '-', '\''];
 // build 5 letter word list
 pub fn build_word_list() -> Vec<String> {
   let word_list = include_str!("../word_lists/anagram_dictionary.txt")
-    .split("\n")
+    .split('\n')
     .map(| str | str.to_string())
-    .filter(| ref line | {
+    .filter(| line | {
       if line.len() != 5 {
         return false
       }
