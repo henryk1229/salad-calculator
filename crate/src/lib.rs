@@ -2,6 +2,8 @@ mod word_salad;
 
 use word_salad::WordSalad;
 use std::collections::HashSet;
+use std::fs::File;
+use std::io::{BufWriter, Write};
 
 const NON_LETTER_CHARS: [char; 4] = ['!', '.', '-', '\''];
 
@@ -27,6 +29,25 @@ pub fn build_word_list() -> Vec<String> {
     })
     .collect::<Vec<String>>();
   word_list
+}
+
+pub fn build_dictionary() -> () {
+  // build word_list
+  let word_list = build_word_list();
+
+  println!("Creating dictionary file");
+  // create file
+  let file = File::create("salad_dictionary.txt").unwrap();
+
+  // write to file
+  println!("Writing word list to dictionary");
+  let mut writer = BufWriter::new(file);
+
+  for word in word_list {
+    writer.write_all(format!("{word}\n").as_bytes()).expect("Could not write dictionary :-(");
+  }
+
+  println!("Dictionary written!");
 }
 
 pub fn find_word_salads(input_string: &str) -> HashSet<String> {
