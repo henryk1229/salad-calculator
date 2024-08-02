@@ -7,11 +7,24 @@ use std::io::{BufWriter, Write};
 
 const NON_LETTER_CHARS: [char; 4] = ['!', '.', '-', '\''];
 
-// build 5 letter word list
-pub fn build_word_list() -> Vec<String> {
+// build 5 letter word list to pick initial word and generate word_salads
+pub fn build_word_list() -> Vec<&'static str> {
+  let word_list = include_str!("../word_lists/salad_dictionary.txt")
+    .split('\n')
+    .filter(| line | {
+      if line.len() < 5 {
+        return false
+      }
+      true
+    })
+    .collect::<Vec<&str>>();
+  word_list
+}
+
+// helper fn to find 5-letter words from large anagram list
+pub fn build_salad_dictionary() -> Vec<&'static str> {
   let word_list = include_str!("../word_lists/anagram_dictionary.txt")
     .split('\n')
-    .map(| str | str.to_string())
     .filter(| line | {
       if line.len() != 5 {
         return false
@@ -27,13 +40,14 @@ pub fn build_word_list() -> Vec<String> {
       };
       set.len() == line.len()
     })
-    .collect::<Vec<String>>();
+    .collect::<Vec<&str>>();
   word_list
 }
 
-pub fn build_dictionary() -> () {
+// init fn to build 5-letter word dictionary
+pub fn write_dictionary_file() -> () {
   // build word_list
-  let word_list = build_word_list();
+  let word_list = build_salad_dictionary();
 
   println!("Creating dictionary file");
   // create file
@@ -49,6 +63,15 @@ pub fn build_dictionary() -> () {
 
   println!("Dictionary written!");
 }
+
+// pub fn  pick_word() -> String {
+//   // build word list
+
+//   // pick word at random
+
+//   // return it
+//   "Todo".to_string()
+// }
 
 pub fn find_word_salads(input_string: &str) -> HashSet<String> {
 
