@@ -21,7 +21,7 @@ impl WordSalad {
     self.children.insert(word.to_string(), WordSalad::create(word, salad_layer + 1));
   }
 
-  pub fn toss_salad(&mut self, word_list: &Vec<String>, solution_set: &mut HashSet<String>) {
+  pub fn toss_salad(&mut self, word_list: &Vec<&str>, solution_set: &mut HashSet<String>) {
     // TODO - is .clone() the best option here?
     let root_word = self.word.clone().unwrap();
     let used_letters: Vec<char> = root_word.chars().collect();
