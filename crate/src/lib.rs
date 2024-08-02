@@ -4,6 +4,7 @@ use word_salad::WordSalad;
 use std::collections::HashSet;
 use std::fs::File;
 use std::io::{BufWriter, Write};
+use rand::seq::SliceRandom;
 
 const NON_LETTER_CHARS: [char; 4] = ['!', '.', '-', '\''];
 
@@ -73,12 +74,7 @@ pub fn write_dictionary_file() -> () {
 //   "Todo".to_string()
 // }
 
-pub fn find_word_salads(input_string: &str) -> HashSet<String> {
-
-  println!("Creating a WordSalad from {input_string}");
-  // initialize word_salad with input string
-  let mut word_salad = WordSalad::create(&input_string.to_string(), 0);
-
+pub fn find_word_salads() -> HashSet<String> {
   // build word list
   println!("Building the word list...");
   let word_list = build_word_list();
@@ -87,10 +83,21 @@ pub fn find_word_salads(input_string: &str) -> HashSet<String> {
   // initialize solution set
   let mut solution_set = HashSet::new();
 
-  // TODO - simplify approach?
+  // ensure that solution_set is not null
+  while solution_set.len() == 0 {
+
+   // choose random initial word
+  let initial_word = word_list.choose(&mut rand::thread_rng()).unwrap();
+
+  println!("Creating a WordSalad from {initial_word}");
+  
+  // initialize word_salad with initial_word at root
+  let mut word_salad = WordSalad::create(&initial_word.to_string(), 0);
+
   println!("Tossing the salad...");
   WordSalad::toss_salad(&mut word_salad, &word_list, &mut solution_set);
   println!("Done!");
+  }
 
   solution_set
 }
