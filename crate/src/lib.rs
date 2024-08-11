@@ -84,7 +84,7 @@ pub fn find_word_salads() -> HashSet<String> {
   let mut solution_set = HashSet::new();
 
   // ensure that solution_set is not null
-  while solution_set.len() == 0 {
+  while solution_set.len() < 30 {
 
    // choose random initial word
   let initial_word = word_list.choose(&mut rand::thread_rng()).unwrap();

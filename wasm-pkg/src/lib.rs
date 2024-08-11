@@ -10,8 +10,8 @@ use wasm_bindgen::prelude::*;
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
 
 #[wasm_bindgen]
-pub fn make_word_salad(first_word: String) -> String {
-    let salad_combos: String = salad_calculator::find_word_salads(first_word.as_str())
+pub fn make_word_salad() -> String {
+    let salad_combos: String = salad_calculator::find_word_salads()
         .into_iter()
         .collect::<Vec<String>>()
         .join("-");
